@@ -13,10 +13,10 @@ using namespace std;
 #define RR "RR"
 void printStatInfo(Stats statInfo, int currentTime)
 {
-    printf("Average cpu usage : %f\n", 100 * (float)(currentTime - statInfo.totalIdleTime) / (float)currentTime);
-    printf("Average waiting time : %f\n", (float)statInfo.totalWaitTime / (float)statInfo.totalJobs);
-    printf("Average response time : %f\n", (float)statInfo.totalResponseTime / (float)statInfo.totalJobs);
-    printf("Average turnaround time: %f\n", (float)statInfo.totalTurnAroundTime / (float)statInfo.totalJobs);
+    printf("Average cpu usage : %.2f%%\n", 100 * (float)(currentTime - statInfo.totalIdleTime) / (float)currentTime);
+    printf("Average waiting time : %.2f\n", (float)statInfo.totalWaitTime / (float)statInfo.totalJobs);
+    printf("Average response time : %.2f\n", (float)statInfo.totalResponseTime / (float)statInfo.totalJobs);
+    printf("Average turnaround time: %.2f\n", (float)statInfo.totalTurnAroundTime / (float)statInfo.totalJobs);
 }
 
 bool addNewJobsToPCBArray(List<Job> jobList, List<PCB> pcbList, int currentTime)
@@ -25,14 +25,10 @@ bool addNewJobsToPCBArray(List<Job> jobList, List<PCB> pcbList, int currentTime)
     ListIterator<Job> jobIterator = jobList.first();
     while (!jobIterator.isPastEnd())
     {
-
         Job job = jobIterator.retrieve();
-
         if (job.arrivalTime == currentTime)
         {
-
             jobList.remove(job);
-
             PCB pcbItem;
             pcbItem.pid = job.pid;
             pcbItem.arrivalTime = job.arrivalTime;

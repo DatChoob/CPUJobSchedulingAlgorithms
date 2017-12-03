@@ -73,7 +73,7 @@ Object List<Object>::remove(Object &x)
     if (p.current->next != NULL)
     {
         Node<Object> *oldNode = p.current->next;
-        p.current->next = p.current->next->next; // Bypass deleted node
+        p.current->next = p.current->next->next;
         return oldNode->element;
     }
 }
