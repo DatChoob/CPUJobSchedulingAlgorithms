@@ -7,8 +7,8 @@ using namespace std;
 #include <fstream>
 #include <cstdio>
 #include <string.h>
+
 #define FCFS "FCFS"
-#define SJF "SJF"
 #define SRTF "SRTF"
 #define RR "RR"
 void printStatInfo(Stats statInfo, int currentTime)
@@ -58,7 +58,6 @@ PCB getMinRemainingTimePCB(List<PCB> pcbList)
     return minRemainingPCB;
 }
 
-//adds new jobs, if any of new jobs has less remaining time than the current, then we will select the minimum remaining time to be our current job
 PCB getNextSRTFJob(PCB currentJob, List<PCB> pcbList, int currentTime)
 {
     if (pcbList.isEmpty())
@@ -67,9 +66,7 @@ PCB getNextSRTFJob(PCB currentJob, List<PCB> pcbList, int currentTime)
     {
         return getMinRemainingTimePCB(pcbList);
     }
-
     PCB minRemainingPCB = currentJob;
-
     ListIterator<PCB> pcbIterator = pcbList.first();
 
     while (!pcbIterator.isPastEnd())
@@ -207,7 +204,6 @@ void performRR(List<Job> jobList, Stats statInfo, int timeQuantum)
         }
         for (i = 0; i < timeQuantum; i++)
         {
-
             printf("<system time %d> process %d is running\n", currentTime, currentJob.pid);
             usleep(1 * 1000);
             currentTime++;
@@ -264,7 +260,6 @@ int main(int argc, char *argv[])
         printf("Please select a valid algorithm\n");
         return -1;
     }
-
     List<Job> jobList;
     Stats statInfo;
     strcpy(statInfo.algorithm, selectedAlgorithm);
@@ -275,7 +270,7 @@ int main(int argc, char *argv[])
     int tempPid, tempArrivalTime, tempBurstTime;
     while (infile >> tempPid >> tempArrivalTime >> tempBurstTime)
     {
-        printf("Job found: %d %d %d\n", tempPid, tempArrivalTime, tempBurstTime);
+        //printf("Job found: %d %d %d\n", tempPid, tempArrivalTime, tempBurstTime);
         Job job;
         job.pid = tempPid;
         job.arrivalTime = tempArrivalTime;
@@ -286,7 +281,8 @@ int main(int argc, char *argv[])
     infile.close();
 
     printf("Selected Algorithm: %s\n", &statInfo.algorithm);
-
+    printf("Total %d tasks are read from \"%s\". press 'enter' to start...\n",statInfo.totalJobs,inputFile); 
+    printf("==================================================================\n");
     if (strcmp(selectedAlgorithm, FCFS) == 0)
     {
         performFCFS(jobList, statInfo);
