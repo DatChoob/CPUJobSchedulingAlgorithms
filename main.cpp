@@ -171,11 +171,9 @@ void performFCFS(List<Job> jobList, Stats statInfo)
         printf("<system time %d> process %d is finished.......\n", currentTime, currentJob.pid);
     }
     printf("<system time %d> All processes finished....................\n", currentTime);
-
     printStatInfo(statInfo, currentTime);
 }
 
-//fix with time quantum
 void performRR(List<Job> jobList, Stats statInfo, int timeQuantum)
 {
     int currentTime = 0;
